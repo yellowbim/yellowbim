@@ -1,3 +1,6 @@
+<p align="center">
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&duration=2000&pause=1000&color=00D9FF&center=true&vCenter=true&width=435&lines=Backend+Engineer;Spring+Boot+%7C+Kubernetes+%7C+Docker;Slow+but+Steady+%F0%9F%90%A2;Learning+MSA+Architecture" />
+</p>
 ## Hi there 👋 I'm Dohyun Lee
 
 Backend developer interested in building reliable systems with Java, Spring Boot, and cloud-native tools ☁️
