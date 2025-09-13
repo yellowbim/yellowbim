@@ -35,6 +35,13 @@ Backend developer interested in building reliable systems with Java, Spring Boot
 
 > 회사 계정의 활동 내역 (코드 공개 불가, 활동량만 표시)
 
+<p align="center">
+  <!-- 라이트 모드 전용 -->
+  <img src="contributions-light.svg#gh-light-mode-only" alt="Work Account Contributions Light" />
+  <!-- 다크 모드 전용 -->
+  <img src="contributions-dark.svg#gh-dark-mode-only" alt="Work Account Contributions Dark" />
+</p>
+
 ![Light Mode](contributions-dark.svg#gh-light-mode-only)
 ![Dark Mode](contributions-dark.svg#gh-dark-mode-only)
 
