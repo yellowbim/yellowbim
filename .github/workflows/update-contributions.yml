@@ -59,7 +59,7 @@ jobs:
           days = ["Mon", "Wed", "Fri"]
           for i, label in enumerate(days):
               y = y_offset + (i * 2 * (cell_size + gap))
-              svg.append(f'<text x="0" y="{y+9}">{label}</text>')
+              svg.append(f'<text x="2" y="{y+9}">{label}</text>')
 
           # 월 라벨 (대략적으로 4주 ≈ 한달 기준)
           months = ["Sep","Oct","Nov","Dec","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug"]
