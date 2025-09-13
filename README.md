@@ -35,7 +35,7 @@ Backend developer interested in building reliable systems with Java, Spring Boot
 
 > 회사 계정의 활동 내역 (코드 공개 불가, 활동량만 표시)
 
-![Light Mode](contributions-light.svg#gh-light-mode-only)
+![Light Mode](contributions.svg#gh-light-mode-only)
 ![Dark Mode](contributions-dark.svg#gh-dark-mode-only)
 
 ---
