@@ -39,6 +39,10 @@ Backend developer interested in building reliable systems with Java, Spring Boot
   <img src="./contributions.svg" />
 </p>
 
+<p align="center">
+  <img src="./contributions-dark.svg" />
+</p>
+
 ---
 
 ## 📫 Contact Me
