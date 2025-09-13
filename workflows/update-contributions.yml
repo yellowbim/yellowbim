@@ -15,7 +15,7 @@ jobs:
       - name: Generate contributions chart
         run: |
           npx github-contributions-chart leejungjun96 \
-            --token ${{ secrets.GH_TOKEN }} \
+            --token ${{ secrets.LEEJUNGJUN96_GH_TOKEN }} \
             -o contributions.svg
 
       - name: Commit & Push
