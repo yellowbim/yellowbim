@@ -25,6 +25,16 @@ jobs:
         run: |
           python3 - <<'EOF'
           import json
+
+          # 라이트 팔레트 → 다크 팔레트 매핑
+          light_to_dark = {
+              "#ebedf0": "#161b22",  # no contribution
+              "#9be9a8": "#0e4429",  # low
+              "#40c463": "#006d32",  # mid
+              "#30a14e": "#26a641",  # high
+              "#216e39": "#39d353",  # very high
+          }
+
           with open("contributions.json") as f:
               data = json.load(f)
 
@@ -38,7 +48,7 @@ jobs:
               f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}">',
               '<style>',
               'rect{shape-rendering:crispEdges;}',
-              '.background { fill: #0d1117; }',   # GitHub 다크모드 배경
+              '.background { fill: #0d1117; }',   # 다크모드 전체 배경
               '.day { stroke: #161b22; }',        # 칸 구분선
               '</style>',
               f'<rect class="background" x="0" y="0" width="{width}" height="{height}" />'
@@ -46,10 +56,11 @@ jobs:
 
           for x, week in enumerate(weeks):
               for y, day in enumerate(week["contributionDays"]):
-                  color = day["color"]
+                  color = day["color"].lower()
+                  dark_color = light_to_dark.get(color, color)  # 다크 팔레트 매핑
                   svg.append(
                       f'<rect class="day" x="{x*cell_size}" y="{y*cell_size}" '
-                      f'width="{cell_size}" height="{cell_size}" fill="{color}" />'
+                      f'width="{cell_size}" height="{cell_size}" fill="{dark_color}" />'
                   )
 
           svg.append("</svg>")
