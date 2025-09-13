@@ -9,7 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: write   # 리포에 push 권한 부여
+      contents: write   # 레포에 push 권한 부여
 
     steps:
       - name: Checkout repo
@@ -31,7 +31,7 @@ jobs:
 
           weeks = data["data"]["user"]["contributionsCollection"]["contributionCalendar"]["weeks"]
 
-          # GitHub 스타일 팔레트
+          # GitHub 팔레트
           def get_color(count: int) -> str:
               if count == 0:
                   return "#ebedf0"
@@ -45,19 +45,44 @@ jobs:
                   return "#216e39"
 
           cell_size = 12
-          width = len(weeks) * cell_size
-          height = 7 * cell_size
+          gap = 2
+          x_offset, y_offset = 40, 20  # 라벨 공간 확보
+          width = len(weeks) * (cell_size + gap) + 100
+          height = 7 * (cell_size + gap) + 60
 
           svg = [
               f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}">',
-              '<style>rect{shape-rendering:crispEdges;}</style>'
+              '<style>rect{shape-rendering:crispEdges;} text{font-size:10px; fill:#767676; font-family:Arial, sans-serif;}</style>'
           ]
 
-          for x, week in enumerate(weeks):
-              for y, day in enumerate(week["contributionDays"]):
+          # 요일 라벨 (Mon, Wed, Fri)
+          days = ["Mon", "Wed", "Fri"]
+          for i, label in enumerate(days):
+              y = y_offset + (i * 2 * (cell_size + gap))
+              svg.append(f'<text x="0" y="{y+9}">{label}</text>')
+
+          # 월 라벨 (대략적으로 4주 ≈ 한달 기준)
+          months = ["Sep","Oct","Nov","Dec","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug"]
+          for i, label in enumerate(months):
+              x = x_offset + i * 4 * (cell_size + gap)
+              svg.append(f'<text x="{x}" y="10">{label}</text>')
+
+          # 잔디칸
+          for wi, week in enumerate(weeks):
+              for di, day in enumerate(week["contributionDays"]):
                   count = day["contributionCount"]
                   color = get_color(count)
-                  svg.append(f'<rect x="{x*cell_size}" y="{y*cell_size}" width="{cell_size}" height="{cell_size}" fill="{color}" />')
+                  x = x_offset + wi * (cell_size + gap)
+                  y = y_offset + di * (cell_size + gap)
+                  svg.append(f'<rect x="{x}" y="{y}" width="{cell_size}" height="{cell_size}" fill="{color}" />')
+
+          # 범례 (Less ~ More)
+          legend_x = x_offset + len(weeks) * (cell_size + gap) - 80
+          legend_y = height - 20
+          svg.append(f'<text x="{legend_x-40}" y="{legend_y+10}">Less</text>')
+          for i, color in enumerate(["#ebedf0","#9be9a8","#40c463","#30a14e","#216e39"]):
+              svg.append(f'<rect x="{legend_x + i*15}" y="{legend_y}" width="12" height="12" fill="{color}" />')
+          svg.append(f'<text x="{legend_x+85}" y="{legend_y+10}">More</text>')
 
           svg.append("</svg>")
 
