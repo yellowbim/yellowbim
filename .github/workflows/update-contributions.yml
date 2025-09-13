@@ -31,19 +31,36 @@ jobs:
 
           weeks = data["data"]["user"]["contributionsCollection"]["contributionCalendar"]["weeks"]
 
-          cell_size = 12
-          width = len(weeks) * cell_size
-          height = 7 * cell_size
+          cell_size = 10
+          gap = 2
+          width = len(weeks) * (cell_size + gap)
+          height = 7 * (cell_size + gap)
 
           svg = [
               f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}">',
               '<style>rect{shape-rendering:crispEdges;}</style>'
           ]
 
+          def get_color(count):
+              if count == 0:
+                  return "#ebedf0"
+              elif count < 10:
+                  return "#9be9a8"
+              elif count < 20:
+                  return "#40c463"
+              elif count < 30:
+                  return "#30a14e"
+              else:
+                  return "#216e39"
+
           for x, week in enumerate(weeks):
               for y, day in enumerate(week["contributionDays"]):
-                  color = day["color"]
-                  svg.append(f'<rect x="{x*cell_size}" y="{y*cell_size}" width="{cell_size}" height="{cell_size}" fill="{color}" />')
+                  count = day["contributionCount"]
+                  color = get_color(count)
+                  svg.append(
+                      f'<rect x="{x*(cell_size+gap)}" y="{y*(cell_size+gap)}" '
+                      f'width="{cell_size}" height="{cell_size}" fill="{color}" rx="2" ry="2"/>'
+                  )
 
           svg.append("</svg>")
 
