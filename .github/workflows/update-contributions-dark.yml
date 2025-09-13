@@ -1,0 +1,67 @@
+name: Update Work Contributions (Dark)
+
+on:
+  schedule:
+    - cron: "0 0 * * *"   # 매일 자정 실행
+  workflow_dispatch:       # 수동 실행도 가능
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # push 권한 부여
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Fetch contributions via GraphQL
+        run: |
+          curl -s -H "Authorization: bearer ${{ secrets.LEEJUNGJUN96_GH_TOKEN }}" \
+               -X POST -d '{ "query": "query { user(login:\"leejungjun96\"){ contributionsCollection { contributionCalendar { weeks { contributionDays { date contributionCount color } } } } } }" }' \
+               https://api.github.com/graphql > contributions.json
+
+      - name: Convert JSON to Dark SVG
+        run: |
+          python3 - <<'EOF'
+          import json
+          with open("contributions.json") as f:
+              data = json.load(f)
+
+          weeks = data["data"]["user"]["contributionsCollection"]["contributionCalendar"]["weeks"]
+
+          cell_size = 12
+          width = len(weeks) * cell_size
+          height = 7 * cell_size
+
+          svg = [
+              f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}">',
+              '<style>',
+              'rect{shape-rendering:crispEdges;}',
+              '.background { fill: #0d1117; }',   # GitHub 다크모드 배경
+              '.day { stroke: #161b22; }',        # 칸 구분선
+              '</style>',
+              f'<rect class="background" x="0" y="0" width="{width}" height="{height}" />'
+          ]
+
+          for x, week in enumerate(weeks):
+              for y, day in enumerate(week["contributionDays"]):
+                  color = day["color"]
+                  svg.append(
+                      f'<rect class="day" x="{x*cell_size}" y="{y*cell_size}" '
+                      f'width="{cell_size}" height="{cell_size}" fill="{color}" />'
+                  )
+
+          svg.append("</svg>")
+
+          with open("contributions-dark.svg", "w") as f:
+              f.write("\n".join(svg))
+          EOF
+
+      - name: Commit & Push
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add contributions-dark.svg
+          git commit -m "Update dark contributions chart" || echo "No changes"
+          git push
