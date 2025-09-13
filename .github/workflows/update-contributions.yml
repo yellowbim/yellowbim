@@ -3,13 +3,13 @@ name: Update Work Contributions
 on:
   schedule:
     - cron: "0 0 * * *"   # 매일 자정 실행
-  workflow_dispatch:       # 수동 실행도 가능
+  workflow_dispatch:       # 수동 실행 가능
 
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: write   # 레포에 push 권한 부여
+      contents: write   # 리포에 push 권한
 
     steps:
       - name: Checkout repo
@@ -18,71 +18,70 @@ jobs:
       - name: Fetch contributions via GraphQL
         run: |
           curl -s -H "Authorization: bearer ${{ secrets.LEEJUNGJUN96_GH_TOKEN }}" \
-               -X POST -d '{ "query": "query { user(login:\"leejungjun96\"){ contributionsCollection { contributionCalendar { weeks { contributionDays { date contributionCount } } } } } }" }' \
+               -X POST -d '{ "query": "query { user(login:\"leejungjun96\"){ contributionsCollection { contributionCalendar { totalContributions weeks { contributionDays { date contributionCount } } } } } }" }' \
                https://api.github.com/graphql > contributions.json
 
-      - name: Convert JSON to SVG (GitHub-style Heatmap)
+      - name: Convert JSON to SVG (GitHub-style heatmap)
         run: |
           python3 - <<'EOF'
-          import json
+          import json, datetime
+
+          # GitHub 다크 모드 팔레트
+          colors = ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"]
 
           with open("contributions.json") as f:
               data = json.load(f)
 
           weeks = data["data"]["user"]["contributionsCollection"]["contributionCalendar"]["weeks"]
 
-          # GitHub 팔레트
-          def get_color(count: int) -> str:
-              if count == 0:
-                  return "#ebedf0"
-              elif count < 4:
-                  return "#9be9a8"
-              elif count < 7:
-                  return "#40c463"
-              elif count < 10:
-                  return "#30a14e"
-              else:
-                  return "#216e39"
-
-          cell_size = 12
+          cell_size = 11
           gap = 2
-          x_offset, y_offset = 40, 20  # 라벨 공간 확보
-          width = len(weeks) * (cell_size + gap) + 100
-          height = 7 * (cell_size + gap) + 60
+          width = len(weeks) * (cell_size + gap)
+          height = 7 * (cell_size + gap) + 20  # 요일 라벨 공간 확보
 
+          # SVG 시작
           svg = [
-              f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}">',
-              '<style>rect{shape-rendering:crispEdges;} text{font-size:10px; fill:#767676; font-family:Arial, sans-serif;}</style>'
+              f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}" style="background-color:#0d1117">',
+              '<style>text{font-family:Arial,Helvetica,sans-serif;font-size:10px;fill:#8b949e;}</style>'
           ]
 
-          # 요일 라벨 (Mon, Wed, Fri)
-          days = ["Mon", "Wed", "Fri"]
-          for i, label in enumerate(days):
-              y = y_offset + (i * 2 * (cell_size + gap))
-              svg.append(f'<text x="2" y="{y+9}">{label}</text>')
+          # 요일 라벨 (월/수/금만)
+          for i, label in enumerate(["Mon","Wed","Fri"]):
+              y = (i*2+1) * (cell_size + gap)
+              svg.append(f'<text x="0" y="{y+9}">{label}</text>')
 
-          # 월 라벨 (대략적으로 4주 ≈ 한달 기준)
-          months = ["Sep","Oct","Nov","Dec","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug"]
-          for i, label in enumerate(months):
-              x = x_offset + i * 4 * (cell_size + gap)
-              svg.append(f'<text x="{x}" y="10">{label}</text>')
+          # 월 라벨 (주 첫 번째 날 기준)
+          month_names = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+          for x, week in enumerate(weeks):
+              first_day = datetime.date.fromisoformat(week["contributionDays"][0]["date"])
+              if first_day.day <= 7:  # 매달 초에만 표시
+                  svg.append(f'<text x="{x*(cell_size+gap)+20}" y="10">{month_names[first_day.month-1]}</text>')
 
-          # 잔디칸
-          for wi, week in enumerate(weeks):
-              for di, day in enumerate(week["contributionDays"]):
+          # 기여도 박스
+          for x, week in enumerate(weeks):
+              for y, day in enumerate(week["contributionDays"]):
                   count = day["contributionCount"]
-                  color = get_color(count)
-                  x = x_offset + wi * (cell_size + gap)
-                  y = y_offset + di * (cell_size + gap)
-                  svg.append(f'<rect x="{x}" y="{y}" width="{cell_size}" height="{cell_size}" fill="{color}" />')
+                  if count == 0:
+                      color = colors[0]
+                  elif count < 5:
+                      color = colors[1]
+                  elif count < 10:
+                      color = colors[2]
+                  elif count < 20:
+                      color = colors[3]
+                  else:
+                      color = colors[4]
+                  rect_x = x * (cell_size + gap) + 20
+                  rect_y = y * (cell_size + gap) + 20
+                  svg.append(f'<rect x="{rect_x}" y="{rect_y}" width="{cell_size}" height="{cell_size}" fill="{color}" rx="2" ry="2"/>')
 
-          # 범례 (Less ~ More)
-          legend_x = x_offset + len(weeks) * (cell_size + gap) - 80
-          legend_y = height - 20
-          svg.append(f'<text x="{legend_x-40}" y="{legend_y+10}">Less</text>')
-          for i, color in enumerate(["#ebedf0","#9be9a8","#40c463","#30a14e","#216e39"]):
-              svg.append(f'<rect x="{legend_x + i*15}" y="{legend_y}" width="12" height="12" fill="{color}" />')
-          svg.append(f'<text x="{legend_x+85}" y="{legend_y+10}">More</text>')
+          # 범례
+          legend_x = 20
+          legend_y = height - 15
+          svg.append(f'<text x="{legend_x}" y="{legend_y}">Less</text>')
+          for i, c in enumerate(colors[1:], start=0):
+              svg.append(f'<rect x="{legend_x+30+i*(cell_size+gap)}" y="{legend_y-10}" width="{cell_size}" height="{cell_size}" fill="{c}" rx="2" ry="2"/>')
+          svg.append(f'<text x="{legend_x+30+5*(cell_size+gap)}" y="{legend_y}">More</text>')
 
           svg.append("</svg>")
 
