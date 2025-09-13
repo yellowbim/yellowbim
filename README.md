@@ -37,9 +37,9 @@ Backend developer interested in building reliable systems with Java, Spring Boot
 
 <p align="center">
   <!-- 라이트 모드 전용 -->
-  <img src="contributions-light.svg#gh-light-mode-only" alt="Work Account Contributions Light" />
+  <img src="contributions.svg" alt="Work Account Contributions Light" />
   <!-- 다크 모드 전용 -->
-  <img src="contributions-dark.svg#gh-dark-mode-only" alt="Work Account Contributions Dark" />
+  <img src="contributions-dark.svg" alt="Work Account Contributions Dark" />
 </p>
 
 ![Light Mode](contributions-dark.svg#gh-light-mode-only)
