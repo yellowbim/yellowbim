@@ -1,6 +1,7 @@
 <p align="center">
   <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&duration=2000&pause=1000&color=00D9FF&center=true&vCenter=true&width=435&lines=Backend+Engineer;Spring+Boot+%7C+Kubernetes+%7C+Docker;Slow+but+Steady+%F0%9F%90%A2;Learning+MSA+Architecture" />
 </p>
+
 ## Hi there 👋 I'm Dohyun Lee
 
 Backend developer interested in building reliable systems with Java, Spring Boot, and cloud-native tools ☁️
@@ -21,7 +22,7 @@ Backend developer interested in building reliable systems with Java, Spring Boot
 
 ---
 
-## 📊 GitHub Stats
+## 📊 GitHub Stats (Portfolio Account)
 
 <p align="center">
   <img src="https://github-readme-stats.vercel.app/api?username=yellowbim&show_icons=true&theme=tokyonight" height="150" />
@@ -30,8 +31,24 @@ Backend developer interested in building reliable systems with Java, Spring Boot
 
 ---
 
+## 📈 Other Contributions (Work Account)
+
+> 회사 계정의 활동 내역 (코드 공개 불가, 활동량만 표시)
+
+<p align="center">
+  <!-- 잔디 그래프 -->
+  <img src="https://github-contributions-api.deno.dev/leejungjun96.svg" height="150" />
+</p>
+
+<p align="center">
+  <!-- Stats 카드 -->
+  <img src="https://github-readme-stats.vercel.app/api?username=leejungjun96&show_icons=true&count_private=true&theme=tokyonight" height="150" />
+</p>
+
+---
+
 ## 📫 Contact Me
 
 [![Blog](https://img.shields.io/badge/Blog-FF5722?style=flat&logo=gitbook&logoColor=white)](https://tistory.slowtuttle.co.kr)
 [![Email](https://img.shields.io/badge/Email-DB4437?style=flat&logo=gmail&logoColor=white)](mailto:leejj9612@naver.com)
-[![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white)](https://github.com)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white)](https://github.com/yellowbim)
