@@ -8,66 +8,58 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write   # 리포에 push 권한 부여
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
 
       - name: Fetch contributions via GraphQL
         run: |
-          curl -H "Authorization: bearer ${{ secrets.LEEJUNGJUN96_GH_TOKEN }}" \
-               -X POST -d '{ "query": "query { user(login:\"leejungjun96\"){ contributionsCollection { contributionCalendar { totalContributions weeks { contributionDays { contributionCount date } } } } } }" }' \
+          curl -s -H "Authorization: bearer ${{ secrets.LEEJUNGJUN96_GH_TOKEN }}" \
+               -X POST -d '{ "query": "query { user(login:\"leejungjun96\"){ contributionsCollection { contributionCalendar { weeks { contributionDays { date contributionCount } } } } } }" }' \
                https://api.github.com/graphql > contributions.json
 
-      - name: Convert JSON to SVG (GitHub-style heatmap)
+      - name: Convert JSON to SVG (GitHub-style Heatmap)
         run: |
           python3 - <<'EOF'
           import json
 
-          # JSON 불러오기
-          data = json.load(open("contributions.json"))
+          with open("contributions.json") as f:
+              data = json.load(f)
+
           weeks = data["data"]["user"]["contributionsCollection"]["contributionCalendar"]["weeks"]
 
-          # GitHub 스타일 색상 팔레트
-          colors = [
-              "#ebedf0",  # 0
-              "#9be9a8",  # 1~4
-              "#40c463",  # 5~9
-              "#30a14e",  # 10~19
-              "#216e39"   # 20+
-          ]
-
+          # GitHub 스타일 팔레트
           def get_color(count: int) -> str:
               if count == 0:
-                  return colors[0]
-              elif count < 5:
-                  return colors[1]
+                  return "#ebedf0"
+              elif count < 4:
+                  return "#9be9a8"
+              elif count < 7:
+                  return "#40c463"
               elif count < 10:
-                  return colors[2]
-              elif count < 20:
-                  return colors[3]
+                  return "#30a14e"
               else:
-                  return colors[4]
+                  return "#216e39"
 
-          # SVG 기본 세팅
-          cell_size, gap = 10, 2
-          width = len(weeks) * (cell_size + gap) + 50
-          height = 7 * (cell_size + gap) + 40
+          cell_size = 12
+          width = len(weeks) * cell_size
+          height = 7 * cell_size
 
           svg = [
-              f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}">',
-              '<style>rect { shape-rendering: crispEdges; }</style>',
-              '<g transform="translate(20,20)">'
+              f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}">',
+              '<style>rect{shape-rendering:crispEdges;}</style>'
           ]
 
-          for wi, week in enumerate(weeks):
-              for di, day in enumerate(week["contributionDays"]):
+          for x, week in enumerate(weeks):
+              for y, day in enumerate(week["contributionDays"]):
                   count = day["contributionCount"]
                   color = get_color(count)
-                  x = wi * (cell_size + gap)
-                  y = di * (cell_size + gap)
-                  svg.append(f'<rect x="{x}" y="{y}" width="{cell_size}" height="{cell_size}" fill="{color}"/>')
+                  svg.append(f'<rect x="{x*cell_size}" y="{y*cell_size}" width="{cell_size}" height="{cell_size}" fill="{color}" />')
 
-          svg.append("</g></svg>")
+          svg.append("</svg>")
 
           with open("contributions.svg", "w") as f:
               f.write("\n".join(svg))
@@ -75,8 +67,8 @@ jobs:
 
       - name: Commit & Push
         run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add contributions.svg
           git commit -m "Update contributions chart" || echo "No changes"
           git push
