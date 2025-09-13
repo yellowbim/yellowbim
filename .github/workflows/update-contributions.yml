@@ -8,7 +8,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
@@ -16,50 +15,61 @@ jobs:
       - name: Fetch contributions via GraphQL
         run: |
           curl -H "Authorization: bearer ${{ secrets.LEEJUNGJUN96_GH_TOKEN }}" \
-               -X POST -d '{ "query": "query { user(login:\"leejungjun96\"){ contributionsCollection { contributionCalendar { weeks { contributionDays { contributionCount date } } } } } }" }' \
+               -X POST -d '{ "query": "query { user(login:\"leejungjun96\"){ contributionsCollection { contributionCalendar { totalContributions weeks { contributionDays { contributionCount date } } } } } }" }' \
                https://api.github.com/graphql > contributions.json
 
-      - name: Convert JSON to SVG (Contribution Heatmap)
+      - name: Convert JSON to SVG (GitHub-style heatmap)
         run: |
-          mkdir -p .github/contributions
           python3 - <<'EOF'
-          import json, os
+          import json
 
-          with open("contributions.json") as f:
-              data = json.load(f)
-
+          # JSON 불러오기
+          data = json.load(open("contributions.json"))
           weeks = data["data"]["user"]["contributionsCollection"]["contributionCalendar"]["weeks"]
 
-          cell_size = 12
-          padding = 2
-          width = len(weeks) * (cell_size + padding)
-          height = 7 * (cell_size + padding)
+          # GitHub 스타일 색상 팔레트
+          colors = [
+              "#ebedf0",  # 0
+              "#9be9a8",  # 1~4
+              "#40c463",  # 5~9
+              "#30a14e",  # 10~19
+              "#216e39"   # 20+
+          ]
 
-          svg = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}">']
+          def get_color(count: int) -> str:
+              if count == 0:
+                  return colors[0]
+              elif count < 5:
+                  return colors[1]
+              elif count < 10:
+                  return colors[2]
+              elif count < 20:
+                  return colors[3]
+              else:
+                  return colors[4]
 
-          colors = ["#ebedf0", "#c6e48b", "#7bc96f", "#239a3b", "#196127"]
+          # SVG 기본 세팅
+          cell_size, gap = 10, 2
+          width = len(weeks) * (cell_size + gap) + 50
+          height = 7 * (cell_size + gap) + 40
 
-          for x, week in enumerate(weeks):
-              for y, day in enumerate(week["contributionDays"]):
+          svg = [
+              f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}">',
+              '<style>rect { shape-rendering: crispEdges; }</style>',
+              '<g transform="translate(20,20)">'
+          ]
+
+          for wi, week in enumerate(weeks):
+              for di, day in enumerate(week["contributionDays"]):
                   count = day["contributionCount"]
-                  if count == 0:
-                      color = colors[0]
-                  elif count < 3:
-                      color = colors[1]
-                  elif count < 6:
-                      color = colors[2]
-                  elif count < 10:
-                      color = colors[3]
-                  else:
-                      color = colors[4]
-                  svg.append(
-                      f'<rect x="{x*(cell_size+padding)}" y="{y*(cell_size+padding)}" width="{cell_size}" height="{cell_size}" fill="{color}"/>'
-                  )
+                  color = get_color(count)
+                  x = wi * (cell_size + gap)
+                  y = di * (cell_size + gap)
+                  svg.append(f'<rect x="{x}" y="{y}" width="{cell_size}" height="{cell_size}" fill="{color}"/>')
 
-          svg.append("</svg>")
+          svg.append("</g></svg>")
 
-          os.makedirs(".github/contributions", exist_ok=True)
-          with open(".github/contributions/work_account.svg", "w") as f:
+          with open("contributions.svg", "w") as f:
               f.write("\n".join(svg))
           EOF
 
@@ -67,6 +77,6 @@ jobs:
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
-          git add .github/contributions/work_account.svg
-          git commit -m "Update work contributions chart" || echo "No changes"
+          git add contributions.svg
+          git commit -m "Update contributions chart" || echo "No changes"
           git push
