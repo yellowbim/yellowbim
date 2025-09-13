@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="842" height="158" viewBox="0 0 842 158">
 <style>rect{shape-rendering:crispEdges;} text{font-size:10px; fill:#767676; font-family:Arial, sans-serif;}</style>
-<text x="0" y="29">Mon</text>
-<text x="0" y="57">Wed</text>
-<text x="0" y="85">Fri</text>
+<text x="2" y="29">Mon</text>
+<text x="2" y="57">Wed</text>
+<text x="2" y="85">Fri</text>
 <text x="40" y="10">Sep</text>
 <text x="96" y="10">Oct</text>
 <text x="152" y="10">Nov</text>
