@@ -36,12 +36,9 @@ Backend developer interested in building reliable systems with Java, Spring Boot
 > 회사 계정의 활동 내역 (코드 공개 불가, 활동량만 표시)
 
 <picture>
-  <!-- 라이트 모드용 -->
-  <source media="(prefers-color-scheme: light)" srcset="contributions-light.svg" />
-  <!-- 다크 모드용 -->
-  <source media="(prefers-color-scheme: dark)" srcset="contributions-dark.svg" />
-  <!-- 기본 fallback -->
-  <img alt="Work Account Contributions" src="contributions-dark.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="contributions-light.svg?v=1" />
+  <source media="(prefers-color-scheme: dark)" srcset="contributions-dark.svg?v=1" />
+  <img alt="Work Account Contributions" src="contributions-dark.svg?v=1" />
 </picture>
 
 ---
