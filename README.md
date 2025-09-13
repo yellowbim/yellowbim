@@ -36,13 +36,7 @@ Backend developer interested in building reliable systems with Java, Spring Boot
 > 회사 계정의 활동 내역 (코드 공개 불가, 활동량만 표시)
 
 <p align="center">
-  <!-- 잔디 그래프 -->
-  <img src="https://github-contributions-api.deno.dev/leejungjun96.svg" height="150" />
-</p>
-
-<p align="center">
-  <!-- Stats 카드 -->
-  <img src="https://github-readme-stats.vercel.app/api?username=leejungjun96&show_icons=true&count_private=true&theme=tokyonight" height="150" />
+  <img src="./contributions.svg" />
 </p>
 
 ---
