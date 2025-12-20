@@ -385,6 +385,7 @@
 <rect x="696" y="59" width="11" height="11" fill="#006d32" rx="2" ry="2"/>
 <rect x="696" y="72" width="11" height="11" fill="#161b22" rx="2" ry="2"/>
 <rect x="696" y="85" width="11" height="11" fill="#161b22" rx="2" ry="2"/>
+<rect x="696" y="98" width="11" height="11" fill="#161b22" rx="2" ry="2"/>
 <text x="20" y="96">Less</text>
 <rect x="50" y="86" width="11" height="11" fill="#0e4429" rx="2" ry="2"/>
 <rect x="63" y="86" width="11" height="11" fill="#006d32" rx="2" ry="2"/>
