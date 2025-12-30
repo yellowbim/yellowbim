@@ -32,11 +32,13 @@ Java, Spring Boot, and cloud-native tools ☁️
 - Practicing **container-based deployment** using Docker & Kubernetes
 - Learning **MSA fundamentals** through small, iterative projects
 
+<img src="https://capsule-render.vercel.app/api?type=rect&color=0:00D9FF,100:6A5ACD&height=2" />
+
+
+
 ### 📊 GitHub Activity Overview
 
 > A high-level snapshot of my public GitHub activity.
-
-<img src="https://capsule-render.vercel.app/api?type=rect&color=0:00D9FF,100:6A5ACD&height=2" />
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=0:00D9FF,100:6A5ACD&height=2" />
 
