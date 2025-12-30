@@ -6,7 +6,7 @@
 
 Backend developer interested in building reliable systems with Java, Spring Boot, and cloud-native tools ☁️
 
----
+<img src="https://capsule-render.vercel.app/api?type=rect&color=0:00D9FF,100:6A5ACD&height=2" />
 
 ## 🛠️ Tech Stack
 
@@ -20,8 +20,8 @@ Backend developer interested in building reliable systems with Java, Spring Boot
 ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=mysql&logoColor=white)
 ![Elasticsearch](https://img.shields.io/badge/Elasticsearch-005571?style=flat&logo=elasticsearch&logoColor=white)
 
+<img src="https://capsule-render.vercel.app/api?type=rect&color=0:00D9FF,100:6A5ACD&height=2" />
 
----
 
 ## 📈 Other Contributions (Work Account)
 
@@ -34,7 +34,8 @@ Backend developer interested in building reliable systems with Java, Spring Boot
   <img src="contributions-dark.svg" alt="Work Account Contributions Dark" />
 </p>
 
----
+<img src="https://capsule-render.vercel.app/api?type=rect&color=0:00D9FF,100:6A5ACD&height=2" />
+
 
 ## 📫 Contact Me
 
