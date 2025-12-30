@@ -25,12 +25,13 @@ Java, Spring Boot, and cloud-native tools ☁️
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=0:00D9FF,100:6A5ACD&height=2" />
 
+
 ### 🔍 What I’m Focusing On
 
-- Building **reliable backend systems** with Spring Boot
-- Designing services with **clear responsibilities**
-- Practicing **container-based deployment** using Docker & Kubernetes
-- Learning **MSA fundamentals** through small, iterative projects
+- Building **reliable backend systems** using Spring Boot in production-like environments
+- Designing services with **clear responsibilities and maintainable boundaries**
+- Managing **container-based deployments** using Docker and Kubernetes
+- Applying **MSA fundamentals** through small, iterative service designs
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=0:00D9FF,100:6A5ACD&height=2" />
 
