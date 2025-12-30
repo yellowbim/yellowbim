@@ -3,13 +3,11 @@
 </p>
 
 ## Hi there 👋 I'm Dohyun Lee
-
 Backend developer interested in building reliable systems with Java, Spring Boot, and cloud-native tools ☁️
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=0:00D9FF,100:6A5ACD&height=2" />
 
 ## 🛠️ Tech Stack
-
 ![Java](https://img.shields.io/badge/Java-007396?style=flat&logo=java&logoColor=white)
 ![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=flat&logo=spring-boot&logoColor=white)
 ![Kotlin](https://img.shields.io/badge/Kotlin-7F52FF?style=flat&logo=kotlin&logoColor=white)
@@ -29,7 +27,6 @@ Backend developer interested in building reliable systems with Java, Spring Boot
 
 
 ## 📫 Contact Me
-
 [![Blog](https://img.shields.io/badge/Blog-FF5722?style=flat&logo=gitbook&logoColor=white)](https://tistory.slowtuttle.co.kr)
 [![Email](https://img.shields.io/badge/Email-DB4437?style=flat&logo=gmail&logoColor=white)](mailto:leejj9612@naver.com)
 [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white)](https://github.com/yellowbim)
