@@ -39,9 +39,7 @@ Java, Spring Boot, and cloud-native tools ☁️
 
 ### 📊 GitHub Activity Overview
 
-> A high-level snapshot of my public GitHub activity.
-
-<img src="https://capsule-render.vercel.app/api?type=rect&color=0:00D9FF,100:6A5ACD&height=2" />
+> Overview of my public GitHub activity across personal and organizational repositories.
 
 <p align="center">
   <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=yellowbim&theme=tokyonight" />
