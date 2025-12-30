@@ -20,14 +20,6 @@ Backend developer interested in building reliable systems with Java, Spring Boot
 ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=mysql&logoColor=white)
 ![Elasticsearch](https://img.shields.io/badge/Elasticsearch-005571?style=flat&logo=elasticsearch&logoColor=white)
 
----
-
-## 📊 GitHub Stats (Portfolio Account)
-
-<p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=yellowbim&show_icons=true&theme=tokyonight" height="150" />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=yellowbim&layout=compact&theme=tokyonight&hide=Jupyter%20Notebook,C,C%2B%2B" height="150" />
-</p>
 
 ---
 
