@@ -22,6 +22,7 @@ Backend developer interested in building reliable systems with Java, Spring Boot
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=0:00D9FF,100:6A5ACD&height=2" />
 
+## 📊 GitHub Activity Overview
 <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=yellowbim&theme=tokyonight" />
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=0:00D9FF,100:6A5ACD&height=2" />
