@@ -9,7 +9,7 @@ Java, Spring Boot, and cloud-native tools ☁️
 
 ---
 
-## 🛠️ Tech Stack
+### 🛠️ Tech Stack
 
 <p>
   <img src="https://img.shields.io/badge/Java-007396?style=flat&logo=java&logoColor=white"/>
@@ -25,7 +25,7 @@ Java, Spring Boot, and cloud-native tools ☁️
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=0:00D9FF,100:6A5ACD&height=2" />
 
-## 📊 GitHub Activity Overview
+### 📊 GitHub Activity Overview
 
 > A high-level snapshot of my public GitHub activity.
 
@@ -35,7 +35,7 @@ Java, Spring Boot, and cloud-native tools ☁️
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=0:00D9FF,100:6A5ACD&height=2" />
 
-## 📫 Contact Me
+### 📫 Contact Me
 
 <p align="center">
   <a href="https://tistory.slowtuttle.co.kr">
