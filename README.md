@@ -4,7 +4,7 @@
 
 # Hi there 👋 I'm Dohyun Lee
 
-Backend developer interested in building **reliable systems** with  
+Backend/DevOps developer interested in building **reliable systems** with  
 Java, Spring Boot, and cloud-native tools ☁️
 
 ---
